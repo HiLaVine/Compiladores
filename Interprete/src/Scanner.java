@@ -73,6 +73,10 @@ public class Scanner {
                     else if(c == '/'){ //Estado donde revisa si tenemos un slash o un comentario.
                         estado = 26;
                     }
+                    else if (c=='"'){
+                    estado=24;
+                    lexema+=c;
+                    }
                     break;
 
                 case 13:
@@ -105,10 +109,12 @@ public class Scanner {
                         lexema += c;
                     }
                     else if(c == '.'){
-
+                        estado=16;
+                        lexema+=c;
                     }
                     else if(c == 'E'){
-
+                        estado=18;
+                        lexema+=c;
                     }
                     else{
                         Token t = new Token(TipoToken.NUMBER, lexema, Integer.valueOf(lexema));
@@ -119,7 +125,80 @@ public class Scanner {
                         i--;
                     }
                     break;
+                case 16:
+                    if (Character.isDigit(c)){
+                        estado=17;
+                        lexema+=c;
+                    }
+                    break;
+                case 17:
+                    if(Character.isDigit(c)){
+                        estado=17;
+                        lexema+=c;
+                    }
+                    else if(c=='E'){
+                    estado =18;
+                    lexema+=c;
+                    }
+                    else{
+                        Token t = new Token(TipoToken.NUMBER, lexema, Integer.valueOf(lexema));
+                        tokens.add(t);
 
+                        estado = 0;
+                        lexema = "";
+                        i--;
+                    }
+                    break;
+                case 18:
+                    if(Character.isDigit(c)){
+                        estado=20;
+                        lexema+=c;
+                    }
+                    else if(c=='+'||c=='-'){
+                        estado=19;
+                        lexema+=c;
+                    }
+                    break;
+                case 19:
+                    if(Character.isDigit(c)){
+                        estado=20;
+                        lexema+=c;
+                
+                    }
+                    break;
+                case 20:
+                    if (Character.isDigit(c)){
+                        estado=20;
+                        lexema+=c;
+                    }
+                    else{
+                        Token t = new Token(TipoToken.NUMBER, lexema, Integer.valueOf(lexema));
+                        tokens.add(t);
+
+                        estado = 0;
+                        lexema = "";
+                        i--;
+                    }
+                    break;
+                case 24:
+                    if (c=='"'){
+                        lexema+=c;
+                        Token t = new Token(TipoToken.STRING, lexema, null);
+                        tokens.add(t);
+                        lexema = "";
+                        estado = 0;
+                    }
+                    else if(c!='\n'){
+                        lexema+=c;
+                    }
+                    else if (c=='\n'){
+                        throw new Exception ("no puede contener un salto de linea" +".");
+                    }
+
+                    else{
+                        throw new Exception ("se esperaba unas comillas de cierre  ");
+                    }
+                break;
                 case 26:
                     if (c == '/') { //Si recibe otro '/' va al estado de comentario de una sola linea
                         estado = 30;
