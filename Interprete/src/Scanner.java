@@ -308,7 +308,11 @@ public class Scanner {
                 break;
 
                 case 30: // Comentario de una sola linea
-                    if(c=='\n') //Si recibe un salto de linea ya no
+                    if(c=='\r') //Si recibe un salto de linea ya no
+                    {
+                        estado = 31;
+                    }
+                    else if(c=='\n') //Si recibe un salto de linea ya no
                     {
                         estado = 31;
                     }
