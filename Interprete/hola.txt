@@ -5,8 +5,6 @@ j jj for
 <<<<<<< HEAD
 //hoala aoa la oa ala 
 /*asdfadfadfasd*/ asdfasdf
-"domo
-
 =======
 4566545
 //hoala aoa la oa ala

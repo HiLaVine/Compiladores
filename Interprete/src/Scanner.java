@@ -74,15 +74,11 @@ public class Scanner {
                     else if(c == '/'){ //Estado donde revisa si tenemos un slash o un comentario.
                         estado = 26;
                     }
-<<<<<<< HEAD
-                    else if (c=='"'){
-                    estado=24;
-                    lexema+=c;
-=======
 
-
-
-
+                    else if (c=='"') {
+                        estado = 24;
+                        lexema += c;
+                    }
                     else if(c=='>'){
                         estado=1;
                         lexema+=c;
@@ -221,7 +217,6 @@ public class Scanner {
                         estado=0;
                         lexema="";
                         i--;
->>>>>>> 6881bffab61273392591e0c3abe99632843cabeb
                     }
                     break;
 
