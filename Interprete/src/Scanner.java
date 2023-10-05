@@ -40,6 +40,7 @@ public class Scanner {
         int estado = 0;       // Estado actual de la máquina de estados.
         String lexema = "";   // Acumulador para construir los lexemas.
         char c;               // Carácter actual.
+        Token t1;
 
         // Bucle para recorrer cada carácter en el código fuente.
         for(int i=0; i<source.length(); i++){
@@ -73,9 +74,154 @@ public class Scanner {
                     else if(c == '/'){ //Estado donde revisa si tenemos un slash o un comentario.
                         estado = 26;
                     }
+<<<<<<< HEAD
                     else if (c=='"'){
                     estado=24;
                     lexema+=c;
+=======
+
+
+
+
+                    else if(c=='>'){
+                        estado=1;
+                        lexema+=c;
+                    }
+                    else if(c=='<'){
+                        estado=4;
+                        lexema+=c;
+                    }
+                    else if(c=='='){
+                        estado=7;
+                        lexema+=c;
+                    }
+                    else if(c=='!'){
+                        estado=10;
+                        lexema+=c;
+                    }
+                    else if(c=='('){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.LEFT_PAREN,lexema);
+                        tokens.add(t1);
+                        lexema="";
+                    }
+                    else if(c==')'){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.RIGHT_PAREN,lexema);
+                        tokens.add(t1);
+                        lexema="";
+                    }
+                    else if(c=='{'){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.LEFT_BRACE,lexema);
+                        tokens.add(t1);
+                        lexema="";
+                    }
+                    else if(c=='}'){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.RIGHT_BRACE,lexema);
+                        tokens.add(t1);
+                        lexema="";
+                    }
+                    else if(c==','){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.COMMA,lexema);
+                        tokens.add(t1);
+                        lexema="";
+                    }
+                    else if(c=='.'){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.DOT,lexema);
+                        tokens.add(t1);
+                        lexema="";
+                    }
+                    else if(c=='-'){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.MINUS,lexema);
+                        tokens.add(t1);
+                        lexema="";
+                    }
+                    else if(c=='+'){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.PLUS,lexema);
+                        tokens.add(t1);
+                        lexema="";
+                    }
+                    else if(c=='*'){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.STAR,lexema);
+                        tokens.add(t1);
+                        lexema="";
+                    }
+                    break;
+
+
+                case 1:
+                    if(c=='='){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.GREATER_EQUAL,lexema);
+                        tokens.add(t1);
+                        estado=0;
+                        lexema="";
+                    }
+                    else{
+                        t1 = new Token(TipoToken.GREATER,lexema);
+                        tokens.add(t1);
+                        estado=0;
+                        lexema="";
+                        i--;
+                    }
+                    break;
+
+                case 4:
+                    if(c=='='){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.LESS_EQUAL,lexema);
+                        tokens.add(t1);
+                        estado=0;
+                        lexema="";
+                    }
+                    else{
+                        t1 = new Token(TipoToken.LESS,lexema);
+                        tokens.add(t1);
+                        estado=0;
+                        lexema="";
+                        i--;
+                    }
+                    break;
+
+                case 7:
+                    if(c=='='){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.EQUAL_EQUAL,lexema);
+                        tokens.add(t1);
+                        estado=0;
+                        lexema="";
+                    }
+                    else{
+                        t1 = new Token(TipoToken.EQUAL,lexema);
+                        tokens.add(t1);
+                        estado=0;
+                        lexema="";
+                        i--;
+                    }
+                    break;
+
+                case 10:
+                    if(c=='='){
+                        lexema+=c;
+                        t1 = new Token(TipoToken.BANG_EQUAL,lexema);
+                        tokens.add(t1);
+                        estado=0;
+                        lexema="";
+                    }
+                    else{
+                        t1 = new Token(TipoToken.BANG,lexema);
+                        tokens.add(t1);
+                        estado=0;
+                        lexema="";
+                        i--;
+>>>>>>> 6881bffab61273392591e0c3abe99632843cabeb
                     }
                     break;
 
@@ -243,7 +389,11 @@ public class Scanner {
                 break;
 
                 case 30: // Comentario de una sola linea
-                    if(c=='\n') //Si recibe un salto de linea ya no
+                    if(c=='\r') //Si recibe un salto de linea ya no
+                    {
+                        estado = 31;
+                    }
+                    else if(c=='\n') //Si recibe un salto de linea ya no
                     {
                         estado = 31;
                     }
