@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Interprete {
-
+ int linea=1;
     static boolean existenErrores = false;
 
     public static void main(String[] args) throws IOException {
