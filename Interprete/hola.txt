@@ -1,14 +1,12 @@
-1 
-a 
-if 
-j jj for
-<<<<<<< HEAD
-//hoala aoa la oa ala 
-/*asdfadfadfasd*/ asdfasdf
-=======
-4566545
-//hoala aoa la oa ala
-//18515154asdf 0asd6f540a
-d6
-/*asdfadf*adfasd*/ asdfasdf = 10
->>>>>>> 6881bffab61273392591e0c3abe99632843cabeb
+// Prueba 8:
+/*
+*/
+
+while(init <= lim){
+    print -fib;
+    var1 = -123
+}
+
+print "Fin";
+
+

@@ -133,6 +133,17 @@ int linea =1;
                         t1 = new Token(TipoToken.STAR, lexema);
                         tokens.add(t1);
                         lexema = "";
+                    } else if (c == ';') {
+                        lexema += c;
+                        t1 = new Token(TipoToken.SEMICOLON, lexema);
+                        tokens.add(t1);
+                        lexema = "";
+                    }
+                    else if(c== ' ' || c== '\t' || c== '\n' || c== '\r'){
+                        estado=0;
+                    }
+                    else {
+                        throw new Exception("CARACTER NO VALIDO");
                     }
                     break;
 
@@ -336,6 +347,7 @@ int linea =1;
                     case 28: //Comentario multilinea
                         if (c == '/') { //Si despues de recibir '*' recibe un '/'. se cierra el comentario y vamos al estado de aceptacion 29;
                             estado = 29;
+                            i--;
                         } else { //Si no recibe '/' vuelve al estado 27.
                             estado = 27;
                         }
