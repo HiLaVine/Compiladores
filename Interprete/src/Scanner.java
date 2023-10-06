@@ -286,7 +286,7 @@ int linea =1;
                             estado = 20;
                             lexema += c;
                         } else {
-                            Token t = new Token(TipoToken.NUMBER, lexema, Double.valueOf(lexema));
+                            Token t = new Token(TipoToken.NUMBER, lexema, Integer.valueOf(lexema));
                             tokens.add(t);
 
                             estado = 0;
