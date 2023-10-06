@@ -8,7 +8,7 @@ import java.util.Map;
 * Operadores: Angel*/
 
 public class Scanner {
-
+    int linea =1;
     private static final Map<String, TipoToken> palabrasReservadas;
 
     static {
@@ -74,15 +74,11 @@ public class Scanner {
                     else if(c == '/'){ //Estado donde revisa si tenemos un slash o un comentario.
                         estado = 26;
                     }
-<<<<<<< HEAD
-                    else if (c=='"'){
-                    estado=24;
-                    lexema+=c;
-=======
 
-
-
-
+                    else if (c=='"') {
+                        estado = 24;
+                        lexema += c;
+                    }
                     else if(c=='>'){
                         estado=1;
                         lexema+=c;
@@ -221,7 +217,7 @@ public class Scanner {
                         estado=0;
                         lexema="";
                         i--;
->>>>>>> 6881bffab61273392591e0c3abe99632843cabeb
+
                     }
                     break;
 
@@ -263,7 +259,7 @@ public class Scanner {
                         lexema+=c;
                     }
                     else{
-                        Token t = new Token(TipoToken.NUMBER, lexema, Integer.valueOf(lexema));
+                        Token t = new Token(TipoToken.NUMBER, lexema, Double.valueOf(lexema));
                         tokens.add(t);
 
                         estado = 0;
@@ -287,7 +283,7 @@ public class Scanner {
                     lexema+=c;
                     }
                     else{
-                        Token t = new Token(TipoToken.NUMBER, lexema, Integer.valueOf(lexema));
+                        Token t = new Token(TipoToken.NUMBER, lexema, Double.valueOf(lexema));
                         tokens.add(t);
 
                         estado = 0;
@@ -318,7 +314,7 @@ public class Scanner {
                         lexema+=c;
                     }
                     else{
-                        Token t = new Token(TipoToken.NUMBER, lexema, Integer.valueOf(lexema));
+                        Token t = new Token(TipoToken.NUMBER, lexema, Double.valueOf(lexema));
                         tokens.add(t);
 
                         estado = 0;
@@ -338,7 +334,7 @@ public class Scanner {
                         lexema+=c;
                     }
                     else if (c=='\n'){
-                        throw new Exception ("no puede contener un salto de linea" +".");
+                        throw new Exception ("no puede contener un salto de linea" +linea+".");
                     }
 
                     else{

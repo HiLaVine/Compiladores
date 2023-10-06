@@ -45,18 +45,16 @@ public class Interprete {
     }
 
     private static void ejecutar(String source) {
-        try{
-            Scanner scanner = new Scanner(source);
-            List<Token> tokens = scanner.scan();
+        Scanner scanner = new Scanner(source); // Inicialización fuera del try
 
-            for(Token token : tokens){
+        try {
+            List<Token> tokens = scanner.scan();
+            for (Token token : tokens) {
                 System.out.println(token);
             }
+        } catch (Exception ex) {
+            Interprete.error(scanner.linea, ex.getMessage());
         }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
-
     }
 
     /*
@@ -72,7 +70,8 @@ public class Interprete {
         System.err.println(
                 "[linea " + linea + "] Error " + posicion + ": " + mensaje
         );
-        existenErrores = true;
-    }
-
+        existenErrores=true;
 }
+}
+
+
