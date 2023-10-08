@@ -1,12 +1,8 @@
-// Prueba 8:
-/*
-*/
+// Prueba 3:
+for(var vari=0; ;){
+    print i;
 
-while(init <= lim){
-    print -fib;
-    var1 = -123
+    if (i>100){
+        return;
+    }
 }
-
-print "Fin";
-
-

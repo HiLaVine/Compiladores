@@ -57,17 +57,6 @@ int linea =1;
                         estado = 15;
                         lexema += c;
 
-                        /*while(Character.isDigit(c)){
-                            lexema += c;
-                            i++;
-                            c = source.charAt(i);
-                        }
-                        Token t = new Token(TipoToken.NUMBER, lexema, Integer.valueOf(lexema));
-                        lexema = "";
-                        estado = 0;
-                        tokens.add(t);
-                        */
-
                     } else if (c == '/') { //Estado donde revisa si tenemos un slash o un comentario.
                         estado = 26;
                     }
@@ -308,7 +297,7 @@ int linea =1;
                     case 24:
                         if (c == '"') {
                             lexema += c;
-                            Token t = new Token(TipoToken.STRING, lexema, null);
+                            Token t = new Token(TipoToken.STRING, lexema, String.valueOf(lexema));
                             tokens.add(t);
                             lexema = "";
                             estado = 0;
@@ -320,6 +309,7 @@ int linea =1;
                             throw new Exception("se esperaba unas comillas de cierre  ");
                         }
                         break;
+
                     case 26:
                         if (c == '/') { //Si recibe otro '/' va al estado de comentario de una sola linea
                             estado = 30;
@@ -358,18 +348,17 @@ int linea =1;
                         estado = 0; //No genera token y vamos a el estado 0 para seguir analizando.
                         break;
 
-                    case 30: // Comentario de una sola linea
-                        if (c == '\r') //Si recibe un salto de linea ya no
+                    case 30: // Estado 30: Manejo de comentarios de una sola línea
+                        if (c == '\r') // Si el caracter es un retorno de carro
                         {
-                            estado = 31;
-                        } else if (c == '\n') //Si recibe un salto de linea ya no
+                            estado = 31; // Cambia al estado 31
+                        } else if (c == '\n') // Si el caracter es un salto de línea
                         {
-                            estado = 31;
-                        } else //Si no recibe el segundo '\n' se queda en el estado 30 hasta que lo reciba.
+                            estado = 31; // Cambia al estado 31
+                        } else // Si no es un retorno de carro ni un salto de línea, se queda en el estado 30 hasta recibir otro '\n'
                         {
                             estado = 30;
                         }
-
                         break;
 
                     case 31: //Estado de aceptacion del comentario de una linea.
