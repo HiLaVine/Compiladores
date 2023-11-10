@@ -49,13 +49,14 @@ public class Interprete {
 
         try {
             List<Token> tokens = scanner.scan();
-            for (Token token : tokens) {
-                System.out.println(token);
-            }
+            Parser parser = new ASDR(tokens);
+            parser.parse();
+
         } catch (Exception ex) {
-            Interprete.error(scanner.linea, ex.getMessage());
-        }
+        Interprete.error(scanner.linea, ex.getMessage());
     }
+}
+
 
     /*
     El método error se puede usar desde las distintas clases
