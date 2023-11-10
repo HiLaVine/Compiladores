@@ -54,7 +54,7 @@ First(FUN_DECL) = {fun}
 First(VAR_DECL) = {var}
 First(VAR_INIT) = {=, ε}
 
-First(STATEMENT) = {!, -, true, false, null, numbre, string, id, (, for, if, print, return, while, { }
+First(STATEMENT) = {!, -, true, false, null, number, string, id, (, for, if, print, return, while, { }
 First(EXPR_STMT) = {id, (, true, false, null, number, string, -, !}
 First(FOR_STMT) = {for}
 First(FOR_STMT_1) = {var, id, ;, (, true, false, null, number, string, -, !}
