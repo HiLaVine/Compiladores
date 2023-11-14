@@ -1,0 +1,97 @@
+PROGRAM -> DECLARATION
+
+DECLARATION -> FUN_DECL DECLARATION | VAR_DECL DECLARATION | STATEMENT DECLARATION | Ɛ
+FUN_DECL -> fun FUNCTION
+VAR_DECL -> var id VAR_INIT ;
+VAR_INIT -> = EXPRESSION | Ɛ
+
+STATEMENT -> EXPR_STMT | FOR_STMT | IF_STMT | PRINT_STMT | RETURN_STMT | WHILE_STMT | BLOCK
+EXPR_STMT -> EXPRESSION ;
+FOR_STMT -> for ( FOR_STMT_1 FOR_STMT_2 FOR_STMT_3 ) STATEMENT
+FOR_STMT_1 -> VAR_DECL | EXPR_STMT | ;
+FOR_STMT_2 -> EXPRESSION ; | ;
+FOR_STMT_3 -> EXPRESSION | Ɛ
+IF_STMT -> if (EXPRESSION) STATEMENT ELSE_STATEMENT
+ELSE_STATEMENT -> else STATEMENT | Ɛ
+PRINT_STMT -> print EXPRESSION ;
+RETURN_STMT -> return RETURN_EXP_OPC ;
+RETURN_EXP_OPC -> EXPRESSION | Ɛ
+WHILE_STMT -> while ( EXPRESSION ) STATEMENT
+BLOCK -> { DECLARATION }
+
+EXPRESSION -> ASSIGNMENT
+ASSIGNMENT -> LOGIC_OR ASSIGNMENT_OPC
+ASSIGNMENT_OPC -> = EXPRESSION | Ɛ
+LOGIC_OR -> LOGIC_AND LOGIC_OR_2
+LOGIC_OR_2 -> or LOGIC_AND LOGIC_OR_2 | Ɛ
+LOGIC_AND -> EQUALITY LOGIC_AND_2
+LOGIC_AND_2 -> and EQUALITY LOGIC_AND_2 | Ɛ
+EQUALITY -> COMPARISON EQUALITY_2
+EQUALITY_2 -> != COMPARISON EQUALITY_2 | == COMPARISON EQUALITY_2 | Ɛ
+COMPARISON -> TERM COMPARISON_2
+COMPARISON_2 -> > TERM COMPARISON_2 | >= TERM COMPARISON_2 | < TERM COMPARISON_2 | <= TERM COMPARISON_2 | Ɛ
+TERM -> FACTOR TERM_2
+TERM_2 -> - FACTOR TERM_2 | + FACTOR TERM_2 | Ɛ
+FACTOR -> UNARY FACTOR_2
+FACTOR_2 -> / UNARY FACTOR_2 | * UNARY FACTOR_2 | Ɛ
+UNARY -> ! UNARY | - UNARY | CALL
+CALL -> PRIMARY CALL_2
+CALL_2 -> ( ARGUMENTS_OPC ) CALL_2 | Ɛ
+PRIMARY -> true | false | null | number | string | id | ( EXPRESSION )
+
+FUNCTION -> id ( PARAMETERS_OPC ) BLOCK
+FUNCTIONS -> FUN_DECL FUNCTIONS | Ɛ
+PARAMETERS_OPC -> PARAMETERS | Ɛ
+PARAMETERS -> id PARAMETERS_2
+PARAMETERS_2 -> , id PARAMETERS_2 | Ɛ
+ARGUMENTS_OPC -> EXPRESSION ARGUMENTS | Ɛ
+ARGUMENTS -> , EXPRESSION ARGUMENTS | Ɛ
+
+Conjuntos Primero:
+First(PROGRAM) = {fun, var, id, (, for, if, print, return, while, {, ε}
+First(DECLARATION) = {fun, var, id, (, for, if, print, return, while, {, ε}
+First(FUN_DECL) = {fun}
+First(VAR_DECL) = {var}
+First(VAR_INIT) = {=, ε}
+
+First(STATEMENT) = {!, -, true, false, null, number, string, id, (, for, if, print, return, while, { }
+First(EXPR_STMT) = {id, (, true, false, null, number, string, -, !}
+First(FOR_STMT) = {for}
+First(FOR_STMT_1) = {var, id, ;, (, true, false, null, number, string, -, !}
+First(FOR_STMT_2) = {id, (, true, false, null, number, string, -, !, ;}
+First(FOR_STMT_3) = {id, (, true, false, null, number, string, -, !, ε}
+First(IF_STMT) = {if}
+First(ELSE_STATEMENT) = {else, ε}
+First(PRINT_STMT) = {print}
+First(RETURN_STMT) = {return}
+First(RETURN_EXP_OPC) = {id, (, true, false, null, number, string, -, !, ε}
+First(WHILE_STMT) = {while}
+First(BLOCK) = { { }
+
+First(EXPRESSION) = {id, (, true, false, null, number, string, -, !}
+First(ASSIGNMENT) = {id, (, true, false, null, number, string, -, !}
+First(ASSIGNMENT_OPC) = {=, ε}
+First(LOGIC_OR) = {id, (, true, false, null, number, string, -, !}
+First(LOGIC_OR_2) = {or, ε}
+First(LOGIC_AND) = {id, (, true, false, null, number, string, -, !}
+First(LOGIC_AND_2) = {and, ε}
+First(EQUALITY) = {id, (, true, false, null, number, string, -, !}
+First(EQUALITY_2) = {!, =, ε} --------------------------------------------------// duda
+First(COMPARISON) = {id, (, true, false, null, number, string, -, !}
+First(COMPARISON_2) = {>, <, ε} -----------------------------------------// duda 
+First(TERM) = {id, (, true, false, null, number, string, -, !}
+First(TERM_2) = {-, +, ε}
+First(FACTOR) = {!,-,(,true,false,null,number,string,id}
+First(FACTOR_2) = {/, *, ε}
+First(UNARY) = {!, - , id, (, true, false, null, number, string}
+First(CALL) = {id, (, true, false, null, number, string}
+First(CALL_2) = {(, ε}
+First(PRIMARY) = {true, false, null, number, string, id, (}
+
+First(FUNCTION) = {id}
+First(FUNCTIONS) = {fun, ε}
+First(PARAMETERS_OPC) = {id, ε}
+First(PARAMETERS) = {id}
+First(PARAMETERS_2) = {, , ε}
+First(ARGUMENTS_OPC) = {!, -, (, true, false, null, number, string, id, ε}
+First(ARGUMENTS) = {, , ε}
