@@ -47,13 +47,14 @@ public class Interprete {
     private static void ejecutar(String source) {
         Scanner scanner = new Scanner(source); // Inicialización fuera del try
 
+
         try {
             List<Token> tokens = scanner.scan();
             Parser parser = new ASDR(tokens);
             parser.parse();
 
         } catch (Exception ex) {
-        Interprete.error(scanner.linea, ex.getMessage());
+            Interprete.error(scanner.linea, ex.getMessage());
     }
 }
 

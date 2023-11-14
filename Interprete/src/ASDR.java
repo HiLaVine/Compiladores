@@ -21,12 +21,14 @@ public class ASDR implements Parser{
             return  true;
         }else {
             System.out.println("Se encontraron errores");
+            return false;
         }
-        return false;
+
     }
 
     // PROGRAM -> DECLARATION
     public void PROGRAM(){
+        System.out.println("hola");
         DECLARATION();
     }
 

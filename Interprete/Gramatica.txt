@@ -78,7 +78,7 @@ First(LOGIC_AND_2) = {and, ε}
 First(EQUALITY) = {id, (, true, false, null, number, string, -, !}
 First(EQUALITY_2) = {!, =, ε} --------------------------------------------------// duda
 First(COMPARISON) = {id, (, true, false, null, number, string, -, !}
-First(COMPARISON_2) = {>, <, ε} -----------------------------------------// duda 
+First(COMPARISON_2) = {>, >=, <, <=, ε} -----------------------------------------// duda 
 First(TERM) = {id, (, true, false, null, number, string, -, !}
 First(TERM_2) = {-, +, ε}
 First(FACTOR) = {!,-,(,true,false,null,number,string,id}
