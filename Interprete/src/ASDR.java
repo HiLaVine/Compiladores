@@ -1,5 +1,8 @@
 import java.util.List;
-
+/*Dudas:
+* suma(x,y) error, al parecer falta la coma
+* pedir que suba las pruebas para el parser
+* */
 public class ASDR implements Parser{
 
     private int i = 0;

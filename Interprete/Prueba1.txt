@@ -3,4 +3,4 @@ var y = 10;
 
 fun sum(a, b) {return a + b;}
 
-print(sum(x, y));
+print(fun sum(a,b));
