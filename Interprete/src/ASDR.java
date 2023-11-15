@@ -28,12 +28,13 @@ public class ASDR implements Parser{
 
     // PROGRAM -> DECLARATION
     public void PROGRAM(){
-        System.out.println("hola");
         DECLARATION();
     }
 
     // DECLARATION -> FUN_DECL DECLARATION | VAR_DECL DECLARATION | STATEMENT DECLARATION | Ɛ
-    public void DECLARATION(){
+    public void DECLARATION() {
+        if(hayErrores)
+            return;
 
         if(preanalisis.tipo == TipoToken.FUN)
         {
@@ -173,7 +174,7 @@ public class ASDR implements Parser{
         if (hayErrores)
             return;
 
-        if(preanalisis.tipo == TipoToken.FUN)
+        if(preanalisis.tipo == TipoToken.VAR)
         {
             VAR_DECL();
         }
@@ -243,6 +244,7 @@ public class ASDR implements Parser{
         match(TipoToken.IF);
         match(TipoToken.LEFT_PAREN);
         EXPRESSION();
+        match(TipoToken.RIGHT_PAREN);
         STATEMENT();
         ELSE_STATEMENT();
     }
@@ -336,7 +338,7 @@ public class ASDR implements Parser{
         else
         {
             hayErrores = true;
-            System.out.println("errror");
+            System.out.println("error");
         }
     }
 
@@ -373,7 +375,7 @@ public class ASDR implements Parser{
     }
 
     // LOGIC_OR_2 -> or LOGIC_AND LOGIC_OR_2 | Ɛ
-    public void LOGIC_OR_2(){
+    public void LOGIC_OR_2(){ 
         if(hayErrores)
             return;
 
@@ -382,11 +384,6 @@ public class ASDR implements Parser{
             match(TipoToken.OR);
             LOGIC_AND();
             LOGIC_OR_2();
-        }
-        else
-        {
-            hayErrores = true;
-            System.out.println("error");
         }
     }
 
@@ -410,11 +407,7 @@ public class ASDR implements Parser{
             EQUALITY();
             LOGIC_AND_2();
         }
-        else
-        {
-            hayErrores = true;
-            System.out.println("error");
-        }
+
     }
 
     // EQUALITY -> COMPARISON EQUALITY_2
@@ -598,7 +591,7 @@ public class ASDR implements Parser{
     }
 
     // PRIMARY -> true | false | null | number | string | id | ( EXPRESSION )
-    public void PRIMARY(){
+    public void PRIMARY(){ //regresa una Expression
         if(hayErrores)
             return;
 
@@ -625,6 +618,8 @@ public class ASDR implements Parser{
         else if(preanalisis.tipo == TipoToken.IDENTIFIER)
         {
             match(TipoToken.IDENTIFIER);
+            /*Token id = previous();
+            * return new ExprVariable */
         }
         else if(preanalisis.tipo == TipoToken.LEFT_PAREN)
         {

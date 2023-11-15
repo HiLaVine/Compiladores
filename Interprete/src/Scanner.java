@@ -3,10 +3,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/*Identificadores, palabras reservadas y comentarios: Emmanuel
-* Numero y cadenas: Reny
-* Operadores: Angel*/
-
 public class Scanner {
 int linea =1;
     private static final Map<String, TipoToken> palabrasReservadas;
@@ -369,6 +365,7 @@ int linea =1;
                 }
 
             }
+        tokens.add(new Token(TipoToken.EOF, "$"));
         return tokens;
     }
 }
