@@ -358,12 +358,9 @@ public class ASDR implements Parser{
         if(hayErrores)
             return;
 
-        if(preanalisis.tipo == TipoToken.IDENTIFIER || preanalisis.tipo == TipoToken.LEFT_PAREN ||
-                preanalisis.tipo == TipoToken.TRUE || preanalisis.tipo == TipoToken.FALSE ||
-                preanalisis.tipo == TipoToken.NULL || preanalisis.tipo == TipoToken.NUMBER ||
-                preanalisis.tipo == TipoToken.STRING || preanalisis.tipo == TipoToken.MINUS ||
-                preanalisis.tipo == TipoToken.BANG)
+        if(preanalisis.tipo == TipoToken.EQUAL)
         {
+            match(TipoToken.EQUAL);
             EXPRESSION();
         }
     }

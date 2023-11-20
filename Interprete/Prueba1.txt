@@ -1,6 +1,9 @@
-var x = 5;
-var y = 10;
+// Prueba 4:
+var radio = 5;
+var pi = "3.1416";
+var area = pi*radio *radio;
 
-fun sum(a, b) {return a + b;}
+print "El area es: ";
+print area;
 
-print(fun sum(a,b));
+print " Hola";
