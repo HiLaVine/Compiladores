@@ -583,7 +583,7 @@ public class ASDR implements Parser{
         if(preanalisis.tipo == TipoToken.LEFT_PAREN)
         {
             match(TipoToken.LEFT_PAREN);
-            ASSIGNMENT_OPC();
+            ARGUMENTS_OPC();
             match(TipoToken.RIGHT_PAREN);
             CALL_2();
         }
