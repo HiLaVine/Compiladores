@@ -27,9 +27,10 @@ public class ASDR implements Parser{
 
     @Override
     public boolean parse() {
-
+        List<Statement> statements = new ArrayList<>();
         try{
-            PROGRAM();
+
+            statements = PROGRAM();
         }
         catch (Exception ex){
             System.out.println(ex.getMessage());
@@ -47,9 +48,10 @@ public class ASDR implements Parser{
     }
 
     // PROGRAM -> DECLARATION
-    public void PROGRAM() throws Exception {
+    public List<Statement> PROGRAM() throws Exception {
         List<Statement> statements = new ArrayList<>();
         DECLARATION(statements);
+        return statements;
     }
 
     // DECLARATION -> FUN_DECL DECLARATION | VAR_DECL DECLARATION | STATEMENT DECLARATION | Ɛ
@@ -384,7 +386,7 @@ public class ASDR implements Parser{
             match(TipoToken.OR);
             Token operador = previous();
             Expression right = LOGIC_AND();
-            LOGIC_OR_2(new ExprLogical(expr,operador,right));
+            return LOGIC_OR_2(new ExprLogical(expr,operador,right));
         }
         return expr;
     }
@@ -402,7 +404,7 @@ public class ASDR implements Parser{
             match(TipoToken.AND);
             Token operador = previous();
             Expression right = EQUALITY();
-            LOGIC_AND_2(new ExprLogical(expr,operador,right));
+            return LOGIC_AND_2(new ExprLogical(expr,operador,right));
         }
         return expr;
     }
@@ -422,14 +424,14 @@ public class ASDR implements Parser{
             match(TipoToken.BANG_EQUAL);
             Token operator  = previous();
             Expression right = COMPARISON();
-            EQUALITY_2(new ExprBinary(expr,operator,right));
+            return EQUALITY_2(new ExprBinary(expr,operator,right));
         }
         else if (preanalisis.tipo == TipoToken.EQUAL_EQUAL)
         {
             match(TipoToken.EQUAL_EQUAL);
             Token operator  = previous();
             Expression right = COMPARISON();
-            EQUALITY_2(new ExprBinary(expr,operator,right));
+            return EQUALITY_2(new ExprBinary(expr,operator,right));
         }
         return expr;
     }
@@ -449,28 +451,28 @@ public class ASDR implements Parser{
             match(TipoToken.GREATER);
             Token operator = previous();
             Expression right = TERM();
-            COMPARISON_2(new ExprBinary(expr,operator,right));
+            return COMPARISON_2(new ExprBinary(expr,operator,right));
         }
         else if(preanalisis.tipo == TipoToken.GREATER_EQUAL)
         {
             match(TipoToken.GREATER_EQUAL);
             Token operator = previous();
             Expression right = TERM();
-            COMPARISON_2(new ExprBinary(expr,operator,right));
+            return COMPARISON_2(new ExprBinary(expr,operator,right));
         }
         else if(preanalisis.tipo == TipoToken.LESS)
         {
             match(TipoToken.LESS);
             Token operator = previous();
             Expression right = TERM();
-            COMPARISON_2(new ExprBinary(expr,operator,right));
+            return COMPARISON_2(new ExprBinary(expr,operator,right));
         }
         else if(preanalisis.tipo == TipoToken.LESS_EQUAL)
         {
             match(TipoToken.LESS_EQUAL);
             Token operator = previous();
             Expression right = TERM();
-            COMPARISON_2(new ExprBinary(expr,operator,right));
+            return COMPARISON_2(new ExprBinary(expr,operator,right));
         }
         return expr;
     }
@@ -490,14 +492,14 @@ public class ASDR implements Parser{
             match(TipoToken.MINUS);
             Token operator = previous();
             Expression right = FACTOR();
-            TERM_2(new ExprBinary(expr,operator,right));
+            return TERM_2(new ExprBinary(expr,operator,right));
         }
         else if(preanalisis.tipo == TipoToken.PLUS)
         {
             match(TipoToken.PLUS);
             Token operator = previous();
             Expression right = FACTOR();
-            TERM_2(new ExprBinary(expr,operator,right));
+            return TERM_2(new ExprBinary(expr,operator,right));
         }
         return expr;
     }
@@ -518,7 +520,7 @@ public class ASDR implements Parser{
             Token operator=previous();
             Expression right=UNARY();
             Expression binExp=new ExprBinary(expr,operator,right);
-            FACTOR_2(binExp);
+            return FACTOR_2(binExp);
         }
         else if(preanalisis.tipo == TipoToken.STAR)
         {
@@ -526,7 +528,7 @@ public class ASDR implements Parser{
             Token operator=previous();
             Expression right=UNARY();
             Expression binExp=new ExprBinary(expr,operator,right);
-            FACTOR_2(binExp);
+            return FACTOR_2(binExp);
         }
 
         return expr;
