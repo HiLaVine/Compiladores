@@ -8,3 +8,5 @@ Este es un intérprete de la materia de compiladores del grupo 5CM3 Llevado a ca
 ## Tabla de Contenidos
 
 1. Scanner
+2. Parser (analizador sintactico descendente recursivo)
+3. Arbol de sintaxis abstracta.
